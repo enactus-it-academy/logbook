@@ -1,25 +1,29 @@
 import os
 from pathlib import Path
+from environs import Env
+
+env = Env()
+env.read_env()
 
 from django.core.exceptions import ImproperlyConfigured
 
 
-def venv_value(env_variable):
-    """Gets the key of an environment variable."""
-    try:
-        return os.environ[env_variable]
-    except KeyError:
-        error_msg = 'Set the {} environment variable'.format(env_variable)
-        raise ImproperlyConfigured(error_msg)
+# def venv_value(env_variable):
+#     """Gets the key of an environment variable."""
+#     try:
+#         return os.environ[env_variable]
+#     except KeyError:
+#         error_msg = 'Set the {} environment variable'.format(env_variable)
+#         raise ImproperlyConfigured(error_msg)
 
-
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = venv_value('SECRET_KEY')
+SECRET_KEY = env('SECRET_KEY')
 
-DEBUG = venv_value('DEBUG')
+DEBUG = env.bool('DEBUG')
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -31,6 +35,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'product',
+
+    'rest_framework',
+    # 'admin-totals'
+
 ]
 
 MIDDLEWARE = [
@@ -66,17 +76,15 @@ WSGI_APPLICATION = 'logbook.wsgi.application'
 
 # Database
 
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': venv_value('POSTGRESQL_NAME'),
-        'USER': venv_value('POSTGRESQL_USER'),
-        'PASSWORD': venv_value('POSTGRESQL_PASSWORD'),
-        'HOST': '',
-        'PORT': '',
+        'NAME': env('DB_NAME'),
+        'USER': env('DB_USER'),
+        'PASSWORD': env('DB_PASSWORD'),
     }
 }
-
 
 # Password validation
 
@@ -98,7 +106,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru-ru'
 
 TIME_ZONE = 'Asia/Bishkek'
 
