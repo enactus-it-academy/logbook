@@ -1,10 +1,8 @@
 from django.contrib import admin
-from admin_totals.admin import ModelAdminTotals
-from django.db.models import Sum
 from .models import Product
 
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ['name', 'count', 'count_sold', 'sum', 'earns', 'date', 'earns_example']
+    list_display = ['name', 'count','available_count', 'count_sold', 'earns', 'date', 'total_earns']
     list_editable = ['count_sold']

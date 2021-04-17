@@ -5,9 +5,6 @@ from environs import Env
 env = Env()
 env.read_env()
 
-from django.core.exceptions import ImproperlyConfigured
-
-
 # def venv_value(env_variable):
 #     """Gets the key of an environment variable."""
 #     try:
@@ -37,11 +34,19 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'product',
+    'authapp',
 
     'rest_framework',
-    # 'admin-totals'
-
+    'knox',
 ]
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ]
+}
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -102,6 +107,15 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        # 'rest_framework.authentication.BasicAuthentication',
+        # 'rest_framework.authentication.SessionAuthentication',
+        'knox.auth.TokenAuthentication',
+    ]
+}
 
 
 # Internationalization
