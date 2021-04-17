@@ -1,27 +1,21 @@
-<<<<<<< HEAD
 from rest_framework.viewsets import ModelViewSet
-
-from .models import Product
-from .serializers import ProductSerializer
-=======
 from rest_framework import permissions
 from .models import Product
 from .serializers import ProductSerializer, SellSerializer
-from rest_framework.generics import ListAPIView, CreateAPIView, UpdateAPIView, DestroyAPIView
+from rest_framework.generics import CreateAPIView, UpdateAPIView, DestroyAPIView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 class ProductCreateView(CreateAPIView, LoginRequiredMixin):
     serializer_class = ProductSerializer
     queryset = Product.objects.all()
-    permission_classes = [permissions.IsAuthenticated]
->>>>>>> auth
+    # permission_classes = [permissions.IsAuthenticated]
 
 
 class ProductView(ModelViewSet):
     serializer_class = ProductSerializer
     queryset = Product.objects.all()
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated]
 
 
 class SellView(UpdateAPIView):
@@ -32,5 +26,5 @@ class SellView(UpdateAPIView):
 class ProductDeleteView(DestroyAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated]
 

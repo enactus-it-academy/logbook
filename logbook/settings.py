@@ -7,10 +7,6 @@ from environs import Env
 env = Env()
 env.read_env()
 
-<<<<<<< HEAD
-
-=======
->>>>>>> auth
 # def venv_value(env_variable):
 #     """Gets the key of an environment variable."""
 #     try:
@@ -40,16 +36,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'product',
-<<<<<<< HEAD
     'communication',
-
-    'rest_framework',
-=======
     'authapp',
+
 
     'rest_framework',
     'knox',
->>>>>>> auth
 ]
 
 
