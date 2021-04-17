@@ -1,11 +1,11 @@
 import os
 from pathlib import Path
+
+from django.core.exceptions import ImproperlyConfigured
 from environs import Env
 
 env = Env()
 env.read_env()
-
-from django.core.exceptions import ImproperlyConfigured
 
 
 # def venv_value(env_variable):
@@ -16,7 +16,7 @@ from django.core.exceptions import ImproperlyConfigured
 #         error_msg = 'Set the {} environment variable'.format(env_variable)
 #         raise ImproperlyConfigured(error_msg)
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = env('SECRET_KEY')
@@ -37,10 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'product',
+    'communication',
 
     'rest_framework',
-    # 'admin-totals'
-
 ]
 
 MIDDLEWARE = [
@@ -76,7 +75,6 @@ WSGI_APPLICATION = 'logbook.wsgi.application'
 
 # Database
 
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -85,6 +83,7 @@ DATABASES = {
         'PASSWORD': env('DB_PASSWORD'),
     }
 }
+
 
 # Password validation
 

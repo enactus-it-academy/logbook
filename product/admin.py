@@ -1,6 +1,4 @@
 from django.contrib import admin
-from admin_totals.admin import ModelAdminTotals
-from django.db.models import Sum
 from .models import Product
 
 
