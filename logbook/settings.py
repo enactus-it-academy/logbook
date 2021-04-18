@@ -2,27 +2,24 @@ import os
 from pathlib import Path
 
 from django.core.exceptions import ImproperlyConfigured
-from environs import Env
 
-env = Env()
-env.read_env()
 
-# def venv_value(env_variable):
-#     """Gets the key of an environment variable."""
-#     try:
-#         return os.environ[env_variable]
-#     except KeyError:
-#         error_msg = 'Set the {} environment variable'.format(env_variable)
-#         raise ImproperlyConfigured(error_msg)
+def venv_value(env_variable):
+    """Gets the key of an environment variable."""
+    try:
+        return os.environ[env_variable]
+    except KeyError:
+        error_msg = 'Set the {} environment variable'.format(env_variable)
+        raise ImproperlyConfigured(error_msg)
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = env('SECRET_KEY')
+SECRET_KEY = venv_value('SECRET_KEY')
 
-DEBUG = env.bool('DEBUG')
+DEBUG = venv_value('DEBUG')
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -34,23 +31,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'knox',
 
     'product',
     'communication',
     'authapp',
-
-
-    'rest_framework',
-    'knox',
 ]
-
-
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.TokenAuthentication',
-    ]
-}
-
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -88,9 +75,11 @@ WSGI_APPLICATION = 'logbook.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': env('DB_NAME'),
-        'USER': env('DB_USER'),
-        'PASSWORD': env('DB_PASSWORD'),
+        'NAME': venv_value('POSTGRESQL_NAME'),
+        'USER': venv_value('POSTGRESQL_USER'),
+        'PASSWORD': venv_value('POSTGRESQL_PASSWORD'),
+        'HOST': '',
+        'PORT': '',
     }
 }
 
@@ -113,18 +102,9 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        # 'rest_framework.authentication.BasicAuthentication',
-        # 'rest_framework.authentication.SessionAuthentication',
-        'knox.auth.TokenAuthentication',
-    ]
-}
-
-
 # Internationalization
 
-LANGUAGE_CODE = 'ru-ru'
+LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'Asia/Bishkek'
 
@@ -142,3 +122,8 @@ STATIC_ROOT = BASE_DIR / 'static'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': ('knox.auth.TokenAuthentication',),
+}
