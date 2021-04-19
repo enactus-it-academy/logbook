@@ -19,7 +19,7 @@ SECRET_KEY = venv_value('SECRET_KEY')
 
 DEBUG = venv_value('DEBUG')
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [os.environ['HTTP_HOST'], '127.0.0.1']
 
 
 # Application definition
@@ -72,16 +72,26 @@ WSGI_APPLICATION = 'logbook.wsgi.application'
 
 # Database
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': venv_value('POSTGRESQL_NAME'),
-        'USER': venv_value('POSTGRESQL_USER'),
-        'PASSWORD': venv_value('POSTGRESQL_PASSWORD'),
-        'HOST': '',
-        'PORT': '',
+if 'RDS_HOSTNAME' in os.environ:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': os.environ['RDS_DB_NAME'],
+            'USER': os.environ['RDS_USERNAME'],
+            'PASSWORD': os.environ['RDS_PASSWORD'],
+            'HOST': os.environ['RDS_HOSTNAME'],
+            'PORT': os.environ['RDS_PORT'],
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': venv_value('POSTGRESQL_NAME'),
+            'USER': venv_value('POSTGRESQL_USER'),
+            'PASSWORD': venv_value('POSTGRESQL_PASSWORD'),
+        }
+    }
 
 
 # Password validation
