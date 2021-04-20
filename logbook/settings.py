@@ -19,7 +19,7 @@ SECRET_KEY = venv_value('SECRET_KEY')
 
 DEBUG = venv_value('DEBUG')
 
-ALLOWED_HOSTS = [os.environ['HTTP_HOST'], '127.0.0.1']
+ALLOWED_HOSTS = [os.environ['HTTP_HOST']]
 
 
 # Application definition
