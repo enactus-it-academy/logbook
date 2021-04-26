@@ -17,9 +17,3 @@ class Product(models.Model):
     available_count = models.IntegerField("Остаток товаров", default=0, editable=False)
     earns = models.IntegerField("Выручка с товара", default=0, editable=False)
     total_earns = models.IntegerField("Выручка", default=0, editable=False)
-
-    def save(self, *args, **kwargs):
-        self.available_count = self.count - self.count_sold
-        self.earns = self.sale_price - self.cost_price
-        self.total_earns = self.earns * self.count_sold
-        super(Product, self).save(*args, **kwargs)
