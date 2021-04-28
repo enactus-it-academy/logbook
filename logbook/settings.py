@@ -33,12 +33,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'rest_framework',
-    'knox',
+    'djoser',
     'storages',
 
     'product',
     'communication',
-    'authapp',
 ]
 
 MIDDLEWARE = [
@@ -147,10 +146,15 @@ if 'AWS_ACCESS_KEY_ID' in os.environ:
     AWS_S3_REGION_NAME = os.environ['AWS_S3_REGION_NAME']
 
 
-# REST Auth
+# Django REST Framework Authentication
 
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': ('rest_framework.authentication.BasicAuthentication',
-                                       'knox.auth.TokenAuthentication'),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
     'DEFAULT_PERMISSION_CLASSES': ['rest_framework.permissions.IsAuthenticated'],
+}
+
+SIMPLE_JWT = {
+   'AUTH_HEADER_TYPES': ('JWT', 'Bearer'),
 }
