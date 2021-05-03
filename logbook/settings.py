@@ -119,11 +119,7 @@ LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'Asia/Bishkek'
 
-USE_I18N = True
-
-USE_L10N = True
-
-USE_TZ = True
+USE_I18N = False
 
 
 # Static files (CSS, JavaScript, Images)
@@ -152,7 +148,7 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
-    'DEFAULT_PERMISSION_CLASSES': ['rest_framework.permissions.IsAuthenticated'],
+    'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAuthenticated',),
 }
 
 SIMPLE_JWT = {
