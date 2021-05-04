@@ -23,3 +23,6 @@ class Product(models.Model):
     count = models.IntegerField("Количество купленных товаров", default=0)
     count_sold = models.IntegerField("Проданные товары", default=0)
     date = models.DateTimeField("Дата покупки товара", auto_now_add=True)
+
+    def __str__(self):
+        return self.name
