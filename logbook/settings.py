@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'djoser',
     'storages',
 
+    'account',
     'product',
     'communication',
 ]
@@ -142,7 +143,9 @@ if 'AWS_ACCESS_KEY_ID' in os.environ:
     AWS_S3_REGION_NAME = os.environ['AWS_S3_REGION_NAME']
 
 
-# Django REST Framework Authentication
+# Authentication
+
+AUTH_USER_MODEL = 'account.User'
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
