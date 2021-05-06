@@ -147,6 +147,12 @@ if 'AWS_ACCESS_KEY_ID' in os.environ:
 
 AUTH_USER_MODEL = 'account.User'
 
+DJOSER = {
+    'SERIALIZERS': {
+        'user_create': 'account.serializers.UserRegistrationSerializer'
+    },
+}
+
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',

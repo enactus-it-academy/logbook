@@ -4,9 +4,9 @@ from .models import Product, Store
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ['name', 'store', 'date']
+    list_display = ['name', 'date']
 
 
 @admin.register(Store)
 class StoreAdmin(admin.ModelAdmin):
-    list_display = ['name', 'owner', 'date']
+    list_display = ['name', 'date']
