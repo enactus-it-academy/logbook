@@ -3,7 +3,7 @@ from django.db import models
 
 class Store(models.Model):
     name = models.CharField(max_length=255)
-    owner = models.OneToOneField('account.Owner', on_delete=models.CASCADE, related_name='stores')
+    owner = models.OneToOneField('account.Owner', on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
