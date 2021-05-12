@@ -1,3 +1,4 @@
+from rest_framework.generics import CreateAPIView, RetrieveAPIView
 from rest_framework.viewsets import ModelViewSet
 
 from .models import Product
@@ -14,11 +15,11 @@ class ProductViewSet(ModelViewSet):
         serializer.save()
 
 
-class StoreViewSet(ModelViewSet):
+class StoreAPIView(CreateAPIView, RetrieveAPIView):
     serializer_class = StoreSerializer
 
-    def get_queryset(self):
-        return self.request.user.owner.stores.all()
+    def get_object(self):
+        return self.request.user.owner.store
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user.owner)
