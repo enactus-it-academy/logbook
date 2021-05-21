@@ -24,6 +24,7 @@ def create_or_update_user(sender, instance, created, **kwargs):
     if instance.is_owner:
         if created:
             Owner.objects.create(user=instance)
+            Store.objects.create(owner=instance.owner)
         else:
             instance.owner.save()
     else:
