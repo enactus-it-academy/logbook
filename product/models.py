@@ -1,4 +1,5 @@
 from django.db import models
+import reversion
 
 
 class Store(models.Model):
@@ -10,6 +11,7 @@ class Store(models.Model):
         return self.name
 
 
+@reversion.register()
 class Product(models.Model):
     name = models.CharField("Название товара", max_length=255)
     store = models.ForeignKey(Store, on_delete=models.CASCADE, null=True, related_name='products')
