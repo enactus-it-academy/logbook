@@ -1,11 +1,12 @@
 from rest_framework.generics import CreateAPIView, RetrieveAPIView
 from rest_framework.viewsets import ModelViewSet
+from reversion.views import RevisionMixin
 
 from .models import Product
 from .serializers import ProductSerializer, StoreSerializer
 
 
-class ProductViewSet(ModelViewSet):
+class ProductViewSet(RevisionMixin, ModelViewSet):
     serializer_class = ProductSerializer
 
     def get_queryset(self):
